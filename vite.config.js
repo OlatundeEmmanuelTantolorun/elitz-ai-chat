@@ -11,4 +11,10 @@ export default defineConfig({
     outDir: "dist",
     sourcemap: false,
   },
+  // This ensures environment variables are available during build
+  define: {
+    "import.meta.env.VITE_GOOGLE_API_KEY": JSON.stringify(
+      process.env.VITE_GOOGLE_API_KEY,
+    ),
+  },
 });
