@@ -1,7 +1,7 @@
 import React from "react";
 import { useChat } from "../context/ChatContext";
 import { useNavigate } from "react-router-dom";
-import robotVideo from "../assets/robotModal.mp4"; // Your robot video file
+import robotVideo from "../assets/robotModal2.mp4";
 
 const Home = () => {
   const { createNewChat } = useChat();
@@ -15,7 +15,6 @@ const Home = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#0D0D0D] px-4">
       <div className="max-w-md w-full bg-[#1a1a1a] rounded-3xl shadow-2xl p-8 text-center border border-gray-800">
-        {/* Robot Video */}
         <div className="mb-6 flex justify-center">
           <video
             src={robotVideo}
@@ -29,7 +28,7 @@ const Home = () => {
 
         <h1 className="text-4xl font-bold text-white mb-2">Elitz</h1>
         <p className="text-gray-400 mb-6">
-          Your AI companion · powered by Gemini
+          Your AI companion · powered by GroqCloud
         </p>
 
         <button

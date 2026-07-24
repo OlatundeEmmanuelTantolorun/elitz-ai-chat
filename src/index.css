@@ -5,6 +5,7 @@ body {
     -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
     sans-serif;
   background: #0d0d0d;
+  overflow-y: hidden;
 }
 
 ::-webkit-scrollbar {
@@ -22,4 +23,49 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #e68a00;
+}
+
+.prose {
+  max-width: none;
+}
+
+.prose p {
+  margin: 0.5em 0;
+}
+
+.prose code:not(pre code) {
+  background: #0d0d0d;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+  color: #ff9900;
+  white-space: nowrap;
+}
+
+.prose pre {
+  background: #0d0d0d;
+  padding: 1em;
+  border-radius: 6px;
+  overflow-x: auto;
+  border: 1px solid #1a1a1a;
+  max-width: 100%;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.prose pre code {
+  background: transparent;
+  padding: 0;
+  color: #e4e4e4;
+  font-family: "Courier New", monospace;
+  font-size: 0.85em;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  display: block;
+  max-width: 100%;
+}
+
+.prose pre {
+  -webkit-overflow-scrolling: touch;
 }

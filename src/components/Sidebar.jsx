@@ -46,7 +46,7 @@ const Sidebar = ({ isOpen, onToggle }) => {
             <img
               src={logo}
               alt="Elitz"
-              className="w-20 h-auto object-contain"
+              className="w-24 h-auto object-contain"
             />
           </div>
           <button
@@ -143,7 +143,7 @@ const Sidebar = ({ isOpen, onToggle }) => {
         </div>
 
         <div className="p-3 border-t border-gray-800 text-xs text-gray-500 text-center">
-          Gemini AI
+          Groq AI
         </div>
       </div>
     </>

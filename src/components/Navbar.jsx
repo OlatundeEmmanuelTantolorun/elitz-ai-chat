@@ -1,6 +1,5 @@
 import React from "react";
 import { useChat } from "../context/ChatContext";
-import logo from "../assets/logo.png";
 
 const Navbar = ({ onToggleSidebar }) => {
   const { activeChat } = useChat();
@@ -29,7 +28,7 @@ const Navbar = ({ onToggleSidebar }) => {
       <div className="flex items-center gap-1">
         <span className="font-semibold text-white text-lg">Elitz</span>
       </div>
-      <span className="text-sm text-green-500 inline">· Gemini</span>
+      <span className="text-sm text-green-500 inline">· Groq</span>
 
       <span className="ml-auto text-xs bg-[#1a1a1a] px-3 py-1 rounded-full text-gray-400 border border-gray-800">
         {activeChat?.messages?.length || 0} messages

@@ -1,6 +1,6 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import { toast } from "react-toastify";
-import { sendMessageToGemini } from "../api/gemini";
+import { sendMessageToGroq } from "../api/groq";
 import { useNavigate } from "react-router-dom";
 
 const ChatContext = createContext();
@@ -24,7 +24,6 @@ export function ChatProvider({ children }) {
 
   const [activeChatId, setActiveChatId] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [lastMessageTime, setLastMessageTime] = useState(0);
 
   useEffect(() => {
     localStorage.setItem("elitz_chats", JSON.stringify(chats));
@@ -39,16 +38,12 @@ export function ChatProvider({ children }) {
       messages: [],
       createdAt: Date.now(),
     };
+
     setChats((prev) => [newChat, ...prev]);
     setActiveChatId(newChat.id);
+
     return newChat;
   };
-
-  useEffect(() => {
-    if (activeChatId) {
-      navigate(`/chat/${activeChatId}`);
-    }
-  }, [activeChatId, navigate]);
 
   const deleteChat = (chatId) => {
     if (chats.length <= 1) {
@@ -63,7 +58,6 @@ export function ChatProvider({ children }) {
       const nextChat = newChats[0] || null;
       setActiveChatId(nextChat?.id || null);
       if (nextChat) {
-        navigate(`/chat/${nextChat.id}`);
       } else {
         navigate("/");
       }
@@ -72,23 +66,10 @@ export function ChatProvider({ children }) {
 
   const switchChat = (chatId) => {
     setActiveChatId(chatId);
-    navigate(`/chat/${chatId}`);
   };
 
   const sendMessage = async (chatId, userMessage) => {
     if (!userMessage.trim() || loading) return;
-
-    // Add rate limiting - wait 2 seconds between messages
-    const now = Date.now();
-    const timeSinceLastMessage = now - lastMessageTime;
-    if (timeSinceLastMessage < 2000) {
-      const waitTime = 2000 - timeSinceLastMessage;
-      console.log(
-        `⏳ Rate limiting: waiting ${waitTime}ms before next message`,
-      );
-      await new Promise((resolve) => setTimeout(resolve, waitTime));
-    }
-    setLastMessageTime(Date.now());
 
     const chat = chats.find((c) => c.id === chatId);
     if (!chat) return;
@@ -115,11 +96,10 @@ export function ChatProvider({ children }) {
       const updatedChat = chats.find((c) => c.id === chatId);
       const allMessages = [...(updatedChat?.messages || []), userMsg];
 
-      console.log("📤 Sending message to Gemini...");
-      const response = await sendMessageToGemini(allMessages);
+      const response = await sendMessageToGroq(allMessages);
+
       const aiContent =
-        response?.candidates?.[0]?.content?.parts?.[0]?.text ||
-        "No response from AI.";
+        response?.choices?.[0]?.message?.content || "No response from AI.";
       const aiMsg = { role: "assistant", content: aiContent };
 
       setChats((prev) =>
@@ -133,9 +113,7 @@ export function ChatProvider({ children }) {
     } catch (error) {
       console.error("Error:", error);
 
-      const isRateLimit =
-        error.message?.includes("Rate limit exceeded") ||
-        error.message?.includes("429");
+      const isRateLimit = error.message?.includes("Rate limit exceeded");
 
       const errorMsg = {
         role: "assistant",
@@ -143,13 +121,10 @@ export function ChatProvider({ children }) {
       };
 
       if (isRateLimit) {
-        toast.warning(
-          "⏳ Rate limit exceeded. Please wait 30 seconds before sending another message.",
-          {
-            style: toastStyle,
-            autoClose: 30000,
-          },
-        );
+        toast.warning("⏳ Rate limit exceeded. Please wait a moment.", {
+          style: toastStyle,
+          autoClose: 30000,
+        });
       } else {
         toast.error(errorMsg.content, { style: toastStyle });
       }

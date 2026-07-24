@@ -9,26 +9,37 @@ import MessageInput from "../components/MessageInput";
 const Chat = () => {
   const { chatId } = useParams();
   const navigate = useNavigate();
-  const { activeChat, loading, sendMessage, switchChat, chats } = useChat();
+  const { activeChat, loading, sendMessage, switchChat, chats, createNewChat } =
+    useChat();
 
   const [sidebarOpen, setSidebarOpen] = useState(window.innerWidth >= 768);
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
+    if (chats.length === 0) {
+      navigate("/");
+      return;
+    }
+
     if (chatId) {
       const chatExists = chats.find((c) => c.id === chatId);
       if (chatExists) {
         if (chatId !== activeChat?.id) {
           switchChat(chatId);
         }
-      } else if (chats.length > 0) {
-        const firstChat = chats[0];
-        navigate(`/chat/${firstChat.id}`);
       } else {
-        navigate("/");
+        const firstChat = chats[0];
+        if (firstChat) {
+          switchChat(firstChat.id);
+          navigate(`/chat/${firstChat.id}`);
+        }
       }
+    } else if (chats.length > 0) {
+      const firstChat = chats[0];
+      switchChat(firstChat.id);
+      navigate(`/chat/${firstChat.id}`);
     }
-  }, [chatId, chats, activeChat, switchChat, navigate]);
+  }, [chatId, chats, activeChat?.id, navigate, switchChat]);
 
   useEffect(() => {
     if (messagesEndRef.current) {
@@ -56,28 +67,39 @@ const Chat = () => {
     sendMessage(activeChat.id, suggestion);
   };
 
-  if (!activeChat && chats.length > 0) {
-    const firstChat = chats[0];
-    navigate(`/chat/${firstChat.id}`);
+  if (chats.length === 0) {
     return null;
   }
 
   const features = [
-    { icon: "🧠", title: "Smart AI", description: "Powered by Google Gemini" },
+    {
+      icon: "🧠",
+      title: "Smart AI",
+      description:
+        "Powered by Groq's Llama 3.3, capable of understanding complex topics",
+    },
     {
       icon: "⚡",
       title: "Fast Responses",
-      description: "Optimized processing",
+      description: "Get answers quickly with Groq's optimized processing",
     },
-    { icon: "🎨", title: "Markdown Support", description: "Rich formatting" },
-    { icon: "💾", title: "Chat History", description: "Saved locally" },
+    {
+      icon: "🎨",
+      title: "Markdown Support",
+      description: "Rich formatting with code blocks, lists, and more",
+    },
+    {
+      icon: "💾",
+      title: "Chat History",
+      description: "Your conversations are saved locally for easy access",
+    },
   ];
 
   const suggestions = [
-    "Explain quantum computing",
-    "Write a Python function",
-    "Best productivity tips",
-    "Tell me a space fact",
+    "Explain quantum computing in simple terms",
+    "Write a Python function to reverse a string",
+    "What are the best productivity tips?",
+    "Tell me a fun fact about space",
   ];
 
   return (
@@ -87,13 +109,13 @@ const Chat = () => {
         onToggle={() => setSidebarOpen(!sidebarOpen)}
       />
 
-      <div className="flex-1 flex flex-col h-full overflow-hidden">
+      <div className="flex-1 flex flex-col h-full overflow-hidden relative">
         <Navbar onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
 
-        <div className="flex-1 overflow-y-auto p-4">
+        <div className="flex-1 overflow-y-auto overflow-x-hidden p-4 pb-32">
           {activeChat && activeChat.messages.length === 0 ? (
-            <div className="max-w-4xl mx-auto h-full flex flex-col items-center justify-center px-4 my-12">
-              <div className="text-center mb-10">
+            <div className="w-full h-full flex flex-col items-center justify-start px-4 py-8">
+              <div className="text-center mb-10 pt-8">
                 <div className="w-16 h-16 bg-[#FF9900] rounded-2xl mx-auto flex items-center justify-center text-3xl shadow-lg mb-4">
                   ✨
                 </div>
@@ -105,7 +127,7 @@ const Chat = () => {
                 </p>
               </div>
 
-              <div className="grid grid-cols-2 gap-4 w-full mb-8">
+              <div className="grid grid-cols-2 gap-4 w-full max-w-2xl mb-8">
                 {features.map((feature, index) => (
                   <div
                     key={index}
@@ -122,7 +144,7 @@ const Chat = () => {
                 ))}
               </div>
 
-              <div className="w-full">
+              <div className="w-full max-w-2xl pb-8">
                 <p className="text-xs text-gray-500 mb-3 text-center">
                   Try asking:
                 </p>
@@ -151,8 +173,14 @@ const Chat = () => {
                   <div className="bg-[#1a1a1a] px-4 py-3 rounded-2xl border border-gray-800">
                     <div className="flex gap-1">
                       <span className="w-2 h-2 bg-[#FF9900] rounded-full animate-pulse"></span>
-                      <span className="w-2 h-2 bg-[#FF9900] rounded-full animate-pulse delay-75"></span>
-                      <span className="w-2 h-2 bg-[#FF9900] rounded-full animate-pulse delay-150"></span>
+                      <span
+                        className="w-2 h-2 bg-[#FF9900] rounded-full animate-pulse"
+                        style={{ animationDelay: "0.2s" }}
+                      ></span>
+                      <span
+                        className="w-2 h-2 bg-[#FF9900] rounded-full animate-pulse"
+                        style={{ animationDelay: "0.4s" }}
+                      ></span>
                     </div>
                   </div>
                 </div>

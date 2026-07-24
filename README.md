@@ -1,33 +1,38 @@
 # 🤖 Elitz — AI Chat Companion
 
-Elitz is a lightweight, ChatGPT-style conversational interface powered by Google's Gemini API. It supports multiple chat threads, markdown-formatted AI responses, and persists conversation history locally in the browser.
+Elitz is a lightweight, ChatGPT-style conversational interface powered by Groq's API. It supports multiple chat threads, markdown-formatted AI responses, and persists conversation history locally in the browser.
 
 ## ✨ Features
 
 - **Multi-chat management** — Create, switch between, and delete conversations from a collapsible sidebar
-- **Gemini-powered responses** — Messages are sent directly to Google's `gemini-2.0-flash` model
+- **Groq-powered responses** — Messages are sent to Groq's `llama-3.3-70b-versatile` model for fast, intelligent responses
 - **Markdown rendering** — AI responses render formatted text, code blocks, and lists via `react-markdown`
+- **Syntax highlighting** — Code blocks are beautifully highlighted with `react-syntax-highlighter` (vscDarkPlus theme)
 - **Local persistence** — Chat history is saved to `localStorage`, so conversations survive page refreshes
 - **Responsive layout** — Sidebar collapses on mobile with an overlay; adapts to desktop and mobile breakpoints
 - **Toast notifications** — Rate limit and error handling surfaced via `react-toastify`
+- **Multi-line input** — Press `Shift + Enter` for new lines, `Enter` to send
+- **Secure API handling** — API key is protected via Vercel serverless function
 
 ## 🛠️ Tech Stack
 
-| Layer         | Technology                             |
-| ------------- | -------------------------------------- |
-| Framework     | React 19 + Vite                        |
-| Styling       | Tailwind CSS v4                        |
-| Routing       | React Router v7                        |
-| AI Backend    | Google Gemini API (`gemini-2.0-flash`) |
-| Markdown      | react-markdown                         |
-| Notifications | react-toastify                         |
+| Layer               | Technology                               |
+| ------------------- | ---------------------------------------- | --- | --- |
+| Framework           | React 19 + Vite                          |
+| Styling             | Tailwind CSS v4                          |
+| Routing             | React Router v7                          |
+| AI Backend          | **Groq API** (`llama-3.3-70b-versatile`) |
+| Markdown            | react-markdown                           |
+| Syntax Highlighting | react-syntax-highlighter (vscDarkPlus)   |
+| Notifications       | react-toastify                           |
+| Deployment          | Vercel (with serverless functions)       |     |     |
 
 ## 🚀 Getting Started
 
 ### Prerequisites
 
 - Node.js 18+
-- A [Google AI Studio](https://aistudio.google.com/) API key with Gemini API access enabled
+- A [Groq API key](https://console.groq.com/keys) (free tier available)
 
 ### Installation
 
@@ -42,7 +47,7 @@ npm install
 Create a `.env` file in the project root:
 
 ```env
-VITE_GOOGLE_API_KEY=your_gemini_api_key_here
+VITE_GROQ_API_KEY=your_gemini_api_key_here
 ```
 
 > Your API key is used client-side to call the Gemini API directly. Do not commit `.env` to version control.
@@ -66,7 +71,7 @@ npm run build
 ```
 src/
 ├── api/
-│   └── gemini.js                  # Gemini API request handling
+│   └── groq.js                  # Gemini API request handling
 ├── assets/
 │   ├── logo.png                   # App logo
 │   ├── robotModal.mp4             # Robot animation video
