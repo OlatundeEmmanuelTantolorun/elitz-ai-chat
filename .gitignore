@@ -1,3 +1,5 @@
+# Create or overwrite .gitignore with proper content
+cat > .gitignore << 'EOF'
 # Logs
 logs
 *.log
@@ -14,11 +16,13 @@ dist-ssr
 *.local
 
 # Environment variables
-# Add to .gitignore
-echo ".env" >> .gitignore
-echo ".env.local" >> .gitignore
-echo ".env.*.local" >> .gitignore
-echo ".env.example" >> .gitignore  # Also ignore .env.example
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+.env.test
+.env.example
 
 # Editor directories and files
 .vscode/*
@@ -40,17 +44,15 @@ build
 dist
 out
 
-# Coverage directory used by tools like istanbul
+# Coverage
 coverage
-
-# nyc test coverage
 .nyc_output
 
 # Dependency directories
 node_modules/
 jspm_packages/
 
-# Optional npm cache directory
+# Optional npm cache
 .npm
 
 # Optional eslint cache
@@ -90,3 +92,4 @@ temp
 
 # vercel
 .vercel
+EOF
