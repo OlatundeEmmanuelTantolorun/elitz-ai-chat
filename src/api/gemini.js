@@ -1,23 +1,10 @@
 // Direct call to Google Gemini API
 export const sendMessageToGemini = async (messages) => {
-  // Try multiple ways to get the API key
-  const API_KEY =
-    import.meta.env.VITE_GOOGLE_API_KEY ||
-    import.meta.env.GOOGLE_API_KEY ||
-    process.env.VITE_GOOGLE_API_KEY;
-
-  console.log("🔍 Environment check:", {
-    hasViteKey: !!import.meta.env.VITE_GOOGLE_API_KEY,
-    hasProcessKey: !!process.env.VITE_GOOGLE_API_KEY,
-    envKeys: Object.keys(import.meta.env).filter((k) => k.includes("GOOGLE")),
-  });
+  const API_KEY = import.meta.env.VITE_GOOGLE_API_KEY;
 
   if (!API_KEY) {
     console.error("❌ API Key is missing!");
-    console.error("Available env vars:", Object.keys(import.meta.env));
-    throw new Error(
-      "API key is missing. Please add VITE_GOOGLE_API_KEY to your Vercel environment variables.",
-    );
+    throw new Error("API key is missing. Please check your .env file.");
   }
 
   console.log(
@@ -44,26 +31,37 @@ export const sendMessageToGemini = async (messages) => {
     console.log("📡 API Response Status:", response.status);
 
     if (!response.ok) {
-      const errorData = await response.json();
-      console.error("❌ API Error Response:", errorData);
+      let errorMessage = "Unknown error";
+      let errorDetails = {};
+
+      try {
+        const errorData = await response.json();
+        errorDetails = errorData;
+        errorMessage =
+          errorData.error?.message || errorData.message || "Unknown error";
+        console.error("❌ API Error Response:", errorData);
+      } catch (parseError) {
+        console.error("❌ Could not parse error response:", parseError);
+        errorMessage = response.statusText || `HTTP ${response.status}`;
+      }
 
       if (response.status === 429) {
         throw new Error(
-          `⚠️ Rate limit exceeded. Please wait 30 seconds and try again.`,
+          `Rate limit exceeded (429). Please wait 30 seconds and try again. Free tier: 60 requests/minute.`,
         );
       } else if (response.status === 401) {
-        console.error("❌ API Key invalid or expired");
-        console.error("🔑 Check your API key at: https://aistudio.google.com/");
         throw new Error(
-          "❌ Invalid API key. Please check your Google Gemini API key in Vercel environment variables.",
+          `Invalid API key. Please check your Google Gemini API key.`,
         );
       } else if (response.status === 403) {
         throw new Error(
-          "❌ API key does not have access to Gemini. Enable Gemini API in Google Cloud Console.",
+          `API key does not have access to Gemini API. Enable Gemini API in Google Cloud Console.`,
         );
+      } else if (response.status === 400) {
+        throw new Error(`Bad request: ${errorMessage}`);
       } else {
         throw new Error(
-          errorData.error?.message || "Failed to get response from Gemini",
+          `Gemini API error (${response.status}): ${errorMessage}`,
         );
       }
     }
@@ -74,16 +72,5 @@ export const sendMessageToGemini = async (messages) => {
   } catch (error) {
     console.error("❌ Error calling Gemini:", error);
     throw error;
-  }
-};
-
-// Optional: Check if API key is valid (for testing)
-export const testApiKey = async (apiKey) => {
-  try {
-    const url = `https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`;
-    const response = await fetch(url);
-    return response.ok;
-  } catch {
-    return false;
   }
 };
