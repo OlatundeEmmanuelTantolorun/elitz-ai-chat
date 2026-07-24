@@ -14,10 +14,11 @@ dist-ssr
 *.local
 
 # Environment variables
-.env
-.env.local
-.env.*
-!.env.example
+# Add to .gitignore
+echo ".env" >> .gitignore
+echo ".env.local" >> .gitignore
+echo ".env.*.local" >> .gitignore
+echo ".env.example" >> .gitignore  # Also ignore .env.example
 
 # Editor directories and files
 .vscode/*
