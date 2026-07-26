@@ -1,6 +1,7 @@
+import { AiTwotoneHome } from "react-icons/ai";
 import React, { useState, useEffect } from "react";
 import { useChat } from "../context/ChatContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 
 const Sidebar = ({ isOpen, onToggle }) => {
@@ -35,9 +36,9 @@ const Sidebar = ({ isOpen, onToggle }) => {
 
       <div
         className={`
-        fixed md:relative z-30 h-full w-64 bg-[#0D0D0D] border-r border-gray-800 shadow-2xl flex flex-col
+        fixed md:relative z-30 h-full w-75 bg-[#0D0D0D] border-r border-gray-800 shadow-2xl flex flex-col
         transition-transform duration-200
-        ${isOpen ? "translate-x-0" : "-translate-x-64 md:translate-x-0"}
+        ${isOpen ? "translate-x-0" : "-translate-x-75 md:translate-x-0"}
         md:translate-x-0
       `}
       >
@@ -69,10 +70,19 @@ const Sidebar = ({ isOpen, onToggle }) => {
           </button>
         </div>
 
-        <div className="p-3">
+        <div className="p-3 flex flex-col gap-3">
+          <Link to="/">
+            <button
+              onClick={handleNewChat}
+              className="w-full bg-[#FF9900] hover:bg-[#e68a00] text-black rounded-lg py-2.5 text-sm font-bold flex items-center justify-center gap-2 transition shadow-lg"
+            >
+              <AiTwotoneHome size={20} />
+              Home
+            </button>
+          </Link>
           <button
             onClick={handleNewChat}
-            className="w-full bg-[#FF9900] hover:bg-[#e68a00] text-white rounded-lg py-2.5 text-sm font-medium flex items-center justify-center gap-2 transition shadow-lg"
+            className="w-full bg-[#FF9900] hover:bg-[#e68a00] text-black rounded-lg py-2.5 text-sm font-bold flex items-center justify-center gap-2 transition shadow-lg"
           >
             <svg
               className="w-4 h-4"

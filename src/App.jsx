@@ -15,13 +15,14 @@ function App() {
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
         <ToastContainer
-          position="top-center"
+          position="bottom-center"
           autoClose={5000}
           hideProgressBar={false}
           newestOnTop
           closeOnClick
           pauseOnHover
-          style={{ width: "auto", maxWidth: "420px" }}
+          theme="dark"
+          style={{ width: "auto", maxWidth: "420px", bottom: "100px" }}
         />
       </ChatProvider>
     </BrowserRouter>

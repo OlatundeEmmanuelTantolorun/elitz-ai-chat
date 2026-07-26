@@ -5,7 +5,7 @@ const Navbar = ({ onToggleSidebar }) => {
   const { activeChat } = useChat();
 
   return (
-    <div className="bg-[#0D0D0D] border-b border-gray-800 px-4 py-3 flex items-center gap-3 shadow-lg">
+    <div className="bg-[#0D0D0D] md:border-b border-gray-800 px-4 py-3 grid grid-cols-3 md:grid-cols-2 gap-3 shadow-lg">
       <button
         onClick={onToggleSidebar}
         className="text-gray-400 hover:text-white md:hidden"
