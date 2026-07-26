@@ -5,10 +5,10 @@ const Navbar = ({ onToggleSidebar }) => {
   const { activeChat } = useChat();
 
   return (
-    <div className="bg-[#0D0D0D] border-b border-gray-800 px-4 py-3 flex items-center gap-3 shadow-lg">
+    <div className="sticky top-0 z-20 bg-[#0D0D0D] border-b border-gray-800 px-4 py-3 flex items-center gap-3 shadow-lg">
       <button
         onClick={onToggleSidebar}
-        className="text-gray-400 hover:text-white md:hidden"
+        className="text-gray-400 hover:text-white md:hidden transition-colors"
       >
         <svg
           className="w-6 h-6"
@@ -25,10 +25,10 @@ const Navbar = ({ onToggleSidebar }) => {
         </svg>
       </button>
 
-      <div className="flex items-center gap-1">
+      <div className="flex items-center gap-2">
         <span className="font-semibold text-white text-lg">Elitz</span>
+        <span className="text-sm text-[#FF9900] font-medium">· Groq</span>
       </div>
-      <span className="text-sm text-green-500 inline">· Groq</span>
 
       <span className="ml-auto text-xs bg-[#1a1a1a] px-3 py-1 rounded-full text-gray-400 border border-gray-800">
         {activeChat?.messages?.length || 0} messages

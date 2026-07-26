@@ -127,7 +127,7 @@ const Chat = () => {
                 </p>
               </div>
 
-              <div className="grid grid-cols-2 gap-4 w-full max-w-2xl mb-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-2xl mb-8">
                 {features.map((feature, index) => (
                   <div
                     key={index}
