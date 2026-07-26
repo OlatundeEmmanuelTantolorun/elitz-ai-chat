@@ -110,6 +110,7 @@ const Chat = () => {
       />
 
       <div className="flex-1 flex flex-col h-full overflow-hidden relative">
+        {/* Navbar is sticky within this container */}
         <Navbar onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
 
         <div className="flex-1 overflow-y-auto overflow-x-hidden p-4 pb-32">
