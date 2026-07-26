@@ -22,7 +22,7 @@ const Home = () => {
             loop
             muted
             playsInline
-            className="w-45 h-45 object-cover rounded-full border-2 border-[#FF9900] shadow-lg shadow-[#FF9900]/20"
+            className="w-55 h-55 object-cover rounded-full border-2 border-[#FF9900] shadow-lg shadow-[#FF9900]/20"
           />
         </div>
 

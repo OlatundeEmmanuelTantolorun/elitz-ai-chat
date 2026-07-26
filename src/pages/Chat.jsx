@@ -13,8 +13,6 @@ const Chat = () => {
 
   const [sidebarOpen, setSidebarOpen] = useState(window.innerWidth >= 768);
   const messagesEndRef = useRef(null);
-  const messagesContainerRef = useRef(null);
-  const [shouldScroll, setShouldScroll] = useState(true);
 
   useEffect(() => {
     if (chats.length === 0) {
@@ -42,46 +40,14 @@ const Chat = () => {
     }
   }, [chatId, chats, activeChat?.id, navigate, switchChat]);
 
-  // Improved scroll to bottom - only when new messages arrive
   useEffect(() => {
-    if (messagesEndRef.current && shouldScroll) {
-      // Use requestAnimationFrame for smoother scrolling
-      requestAnimationFrame(() => {
-        messagesEndRef.current?.scrollIntoView({
-          behavior: "smooth",
-          block: "end",
-        });
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
       });
     }
-  }, [activeChat?.messages, shouldScroll]);
-
-  // Only scroll when user sends a message or AI responds
-  useEffect(() => {
-    if (activeChat?.messages?.length > 0) {
-      setShouldScroll(true);
-    }
-  }, [activeChat?.messages?.length]);
-
-  // Detect if user is manually scrolling up
-  useEffect(() => {
-    const container = messagesContainerRef.current;
-    if (!container) return;
-
-    const handleScroll = () => {
-      const { scrollTop, scrollHeight, clientHeight } = container;
-      const isNearBottom = scrollHeight - scrollTop - clientHeight < 100;
-
-      // If user scrolls up, stop auto-scrolling
-      if (!isNearBottom) {
-        setShouldScroll(false);
-      } else {
-        setShouldScroll(true);
-      }
-    };
-
-    container.addEventListener("scroll", handleScroll);
-    return () => container.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [activeChat?.messages]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -95,13 +61,11 @@ const Chat = () => {
 
   const handleSendMessage = (message) => {
     if (!activeChat) return;
-    setShouldScroll(true); // Always scroll when sending
     sendMessage(activeChat.id, message);
   };
 
   const handleSuggestionClick = (suggestion) => {
     if (!activeChat) return;
-    setShouldScroll(true);
     sendMessage(activeChat.id, suggestion);
   };
 
@@ -113,50 +77,52 @@ const Chat = () => {
     {
       icon: "🧠",
       title: "Smart AI",
-      description:
-        "Powered by Groq's Llama 3.3, capable of understanding complex topics",
+      description: "Powered by Groq's Llama 3.3",
     },
     {
       icon: "⚡",
       title: "Fast Responses",
-      description: "Get answers quickly with Groq's optimized processing",
+      description: "Get answers quickly with Groq",
     },
     {
       icon: "🎨",
       title: "Markdown Support",
-      description: "Rich formatting with code blocks, lists, and more",
+      description: "Rich formatting with code blocks",
     },
     {
       icon: "💾",
       title: "Chat History",
-      description: "Your conversations are saved locally for easy access",
+      description: "Saved locally for easy access",
     },
   ];
 
   const suggestions = [
-    "Explain quantum computing in simple terms",
-    "Write a Python function to reverse a string",
-    "What are the best productivity tips?",
-    "Tell me a fun fact about space",
+    "Explain quantum computing",
+    "Write a Python function",
+    "Best productivity tips",
+    "Tell me a space fact",
   ];
 
   return (
-    <div className="flex h-screen overflow-hidden bg-[#0D0D0D]">
+    <div
+      className="flex bg-[#0D0D0D]"
+      style={{ height: "100dvh", overflow: "hidden" }}
+    >
       <Sidebar
         isOpen={sidebarOpen}
         onToggle={() => setSidebarOpen(!sidebarOpen)}
       />
 
-      <div className="flex-1 flex flex-col h-full overflow-hidden relative">
+      <div
+        className="flex-1 flex flex-col"
+        style={{ height: "100dvh", overflow: "hidden" }}
+      >
         <Navbar onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
 
-        <div
-          ref={messagesContainerRef}
-          className="flex-1 overflow-y-auto overflow-x-hidden p-4 pb-32"
-        >
+        <div className="flex-1 overflow-y-auto px-4 py-4">
           {activeChat && activeChat.messages.length === 0 ? (
-            <div className="w-full h-full flex flex-col items-center justify-start px-4 py-8">
-              <div className="text-center mb-10 pt-8">
+            <div className="min-h-full flex flex-col items-center justify-start px-4 py-8">
+              <div className="text-center mb-8 pt-4">
                 <div className="w-16 h-16 bg-[#FF9900] rounded-2xl mx-auto flex items-center justify-center text-3xl shadow-lg mb-4">
                   ✨
                 </div>
@@ -208,27 +174,19 @@ const Chat = () => {
                 activeChat.messages.map((msg, index) => (
                   <Message key={index} message={msg} />
                 ))}
-
               {loading && (
                 <div className="flex justify-start mb-4">
                   <div className="bg-[#1a1a1a] px-4 py-3 rounded-2xl border border-gray-800">
                     <div className="flex gap-1">
                       <span className="w-2 h-2 bg-[#FF9900] rounded-full animate-pulse"></span>
-                      <span
-                        className="w-2 h-2 bg-[#FF9900] rounded-full animate-pulse"
-                        style={{ animationDelay: "0.2s" }}
-                      ></span>
-                      <span
-                        className="w-2 h-2 bg-[#FF9900] rounded-full animate-pulse"
-                        style={{ animationDelay: "0.4s" }}
-                      ></span>
+                      <span className="w-2 h-2 bg-[#FF9900] rounded-full animate-pulse delay-75"></span>
+                      <span className="w-2 h-2 bg-[#FF9900] rounded-full animate-pulse delay-150"></span>
                     </div>
                   </div>
                 </div>
               )}
             </>
           )}
-
           <div ref={messagesEndRef} />
         </div>
 

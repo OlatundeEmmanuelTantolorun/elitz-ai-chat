@@ -8,7 +8,7 @@ const MessageInput = ({ onSend, loading }) => {
     if (textareaRef.current) {
       textareaRef.current.style.height = "auto";
       textareaRef.current.style.height =
-        Math.min(textareaRef.current.scrollHeight, 150) + "px";
+        Math.min(textareaRef.current.scrollHeight, 120) + "px";
     }
   }, [input]);
 
@@ -16,7 +16,6 @@ const MessageInput = ({ onSend, loading }) => {
     if (!input.trim() || loading) return;
     onSend(input);
     setInput("");
-
     if (textareaRef.current) {
       textareaRef.current.style.height = "auto";
     }
@@ -30,7 +29,7 @@ const MessageInput = ({ onSend, loading }) => {
   };
 
   return (
-    <div className="border-t border-gray-800 bg-[#0D0D0D] p-3 sticky bottom-0 left-0 right-0 z-10 mt-auto">
+    <div className="shrink-0 border-t border-gray-800 bg-[#0D0D0D] p-3">
       <div className="flex items-end gap-2 max-w-3xl mx-auto">
         <div className="flex-1 bg-[#1a1a1a] border border-gray-800 rounded-2xl px-4 py-2 focus-within:ring-2 focus-within:ring-[#FF9900] transition">
           <textarea
@@ -40,16 +39,15 @@ const MessageInput = ({ onSend, loading }) => {
             onKeyDown={handleKeyDown}
             placeholder="Ask Elitz anything..."
             rows="1"
-            className="w-full bg-transparent text-white placeholder-gray-500 text-sm outline-none resize-none min-h-[24px] max-h-[150px] leading-6"
+            className="w-full bg-transparent text-white placeholder-gray-500 text-sm outline-none resize-none min-h-6 max-h-30 leading-6"
             disabled={loading}
-            style={{ height: "auto" }}
           />
         </div>
         <button
           onClick={handleSubmit}
           disabled={loading || !input.trim()}
           className={`
-            p-3 rounded-full transition flex-shrink-0 mb-0.5
+            p-3 rounded-full transition flex-shrink-0
             ${
               loading || !input.trim()
                 ? "bg-gray-800 text-gray-500 cursor-not-allowed"
