@@ -9,11 +9,12 @@ import MessageInput from "../components/MessageInput";
 const Chat = () => {
   const { chatId } = useParams();
   const navigate = useNavigate();
-  const { activeChat, loading, sendMessage, switchChat, chats, createNewChat } =
-    useChat();
+  const { activeChat, loading, sendMessage, switchChat, chats } = useChat();
 
   const [sidebarOpen, setSidebarOpen] = useState(window.innerWidth >= 768);
   const messagesEndRef = useRef(null);
+  const messagesContainerRef = useRef(null);
+  const [shouldScroll, setShouldScroll] = useState(true);
 
   useEffect(() => {
     if (chats.length === 0) {
@@ -41,11 +42,46 @@ const Chat = () => {
     }
   }, [chatId, chats, activeChat?.id, navigate, switchChat]);
 
+  // Improved scroll to bottom - only when new messages arrive
   useEffect(() => {
-    if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    if (messagesEndRef.current && shouldScroll) {
+      // Use requestAnimationFrame for smoother scrolling
+      requestAnimationFrame(() => {
+        messagesEndRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "end",
+        });
+      });
     }
-  }, [activeChat?.messages]);
+  }, [activeChat?.messages, shouldScroll]);
+
+  // Only scroll when user sends a message or AI responds
+  useEffect(() => {
+    if (activeChat?.messages?.length > 0) {
+      setShouldScroll(true);
+    }
+  }, [activeChat?.messages?.length]);
+
+  // Detect if user is manually scrolling up
+  useEffect(() => {
+    const container = messagesContainerRef.current;
+    if (!container) return;
+
+    const handleScroll = () => {
+      const { scrollTop, scrollHeight, clientHeight } = container;
+      const isNearBottom = scrollHeight - scrollTop - clientHeight < 100;
+
+      // If user scrolls up, stop auto-scrolling
+      if (!isNearBottom) {
+        setShouldScroll(false);
+      } else {
+        setShouldScroll(true);
+      }
+    };
+
+    container.addEventListener("scroll", handleScroll);
+    return () => container.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -59,11 +95,13 @@ const Chat = () => {
 
   const handleSendMessage = (message) => {
     if (!activeChat) return;
+    setShouldScroll(true); // Always scroll when sending
     sendMessage(activeChat.id, message);
   };
 
   const handleSuggestionClick = (suggestion) => {
     if (!activeChat) return;
+    setShouldScroll(true);
     sendMessage(activeChat.id, suggestion);
   };
 
@@ -110,10 +148,12 @@ const Chat = () => {
       />
 
       <div className="flex-1 flex flex-col h-full overflow-hidden relative">
-        {/* Navbar is sticky within this container */}
         <Navbar onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
 
-        <div className="flex-1 overflow-y-auto overflow-x-hidden p-4 pb-32">
+        <div
+          ref={messagesContainerRef}
+          className="flex-1 overflow-y-auto overflow-x-hidden p-4 pb-32"
+        >
           {activeChat && activeChat.messages.length === 0 ? (
             <div className="w-full h-full flex flex-col items-center justify-start px-4 py-8">
               <div className="text-center mb-10 pt-8">
