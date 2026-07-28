@@ -44,23 +44,22 @@ const Sidebar = ({ isOpen, onToggle }) => {
     <>
       {isOpen && isMobile && (
         <div
-          className="fixed inset-0 bg-black/70 backdrop-blur-sm z-30"
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100]" // Increased from z-30
           onClick={onToggle}
         />
       )}
-
       <aside
         className={`
-          fixed md:relative
-          z-40
-          h-full
-          w-80
-          bg-[#111111]
-          border-r border-gray-800
-          flex flex-col
-          transition-transform duration-300 ease-in-out
-          ${isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
-        `}
+    fixed md:relative
+    z-[100] // Increased from z-40
+    h-full
+    w-80
+    bg-[#111111]
+    border-r border-gray-800
+    flex flex-col
+    transition-transform duration-300 ease-in-out
+    ${isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
+  `}
       >
         <div className="border-b border-gray-800 p-5">
           <div className="flex items-center justify-between">
