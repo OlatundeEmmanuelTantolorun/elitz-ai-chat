@@ -1,39 +1,40 @@
 import React from "react";
+import { HiMenu } from "react-icons/hi";
 import { useChat } from "../context/ChatContext";
 
 const Navbar = ({ onToggleSidebar }) => {
   const { activeChat } = useChat();
 
   return (
-    <div className="bg-[#0D0D0D] md:border-b border-gray-800 px-4 py-3 grid grid-cols-3 md:grid-cols-2 gap-3 shadow-lg">
-      <button
-        onClick={onToggleSidebar}
-        className="text-gray-400 hover:text-white md:hidden"
-      >
-        <svg
-          className="w-6 h-6"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M4 6h16M4 12h16M4 18h16"
-          />
-        </svg>
-      </button>
+    <header className="sticky top-0 z-20 bg-[#0D0D0D]/95 backdrop-blur-md border-b border-gray-800">
+      <div className="h-16 px-4 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <button
+            onClick={onToggleSidebar}
+            className="md:hidden p-2 rounded-lg text-gray-400 hover:text-white hover:bg-[#1a1a1a] transition-all duration-200"
+          >
+            <HiMenu className="w-6 h-6" />
+          </button>
 
-      <div className="flex items-center gap-2">
-        <span className="font-semibold text-white text-lg">Elitz</span>
-        <span className="text-sm text-[#FF9900] font-medium">· Groq</span>
+          <div className="flex flex-col leading-tight">
+            <h1 className="text-white text-lg font-semibold tracking-tight">
+              Elitz
+            </h1>
+
+            <span className="text-xs text-[#FF9900] font-medium">
+              Powered by Groq
+            </span>
+          </div>
+        </div>
+
+        <div className="flex items-center">
+          <span className="inline-flex items-center gap-2 bg-[#171717] border border-gray-800 rounded-full px-3 py-1.5 text-xs text-gray-400">
+            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+            {activeChat?.messages?.length || 0} messages
+          </span>
+        </div>
       </div>
-
-      <span className="ml-auto text-xs bg-[#1a1a1a] px-3 py-1 rounded-full text-gray-400 border border-gray-800">
-        {activeChat?.messages?.length || 0} messages
-      </span>
-    </div>
+    </header>
   );
 };
 

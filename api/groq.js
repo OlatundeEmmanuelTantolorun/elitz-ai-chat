@@ -1,6 +1,5 @@
 // api/groq.js - Vercel Serverless Function for Groq
 export default async function handler(req, res) {
-  // Only allow POST requests
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
@@ -12,7 +11,6 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "Invalid messages format" });
     }
 
-    // Get Groq API key from environment variables
     const apiKey = process.env.GROQ_API_KEY;
 
     if (!apiKey) {
@@ -24,7 +22,6 @@ export default async function handler(req, res) {
 
     console.log(`📨 Sending ${messages.length} messages to Groq...`);
 
-    // Call Groq API
     const response = await fetch(
       "https://api.groq.com/openai/v1/chat/completions",
       {

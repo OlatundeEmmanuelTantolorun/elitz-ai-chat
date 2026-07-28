@@ -4,9 +4,6 @@ import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 
-// ========================
-// Copy button for code
-// ========================
 const CopyButton = ({ code }) => {
   const [copied, setCopied] = useState(false);
 
@@ -31,9 +28,6 @@ const CopyButton = ({ code }) => {
   );
 };
 
-// ========================
-// Copy button for the whole message
-// ========================
 const MessageCopyButton = ({ content }) => {
   const [copied, setCopied] = useState(false);
 
@@ -52,16 +46,12 @@ const MessageCopyButton = ({ content }) => {
     <button
       onClick={handleCopy}
       title="Copy message"
-      className="absolute -top-3 -right-3 bg-[#1a1a1a] hover:bg-[#2a2a2a] text-gray-300 hover:text-white border border-gray-700 rounded-full w-7 h-7 flex items-center justify-center text-xs shadow-sm transition z-10"
+      className="absolute -top-3 -right-3 bg-[#1a1a1a] hover:bg-[#2a2a2a] text-gray-300 hover:text-white border border-gray-700 flex items-center justify-center text-xs shadow-sm transition z-10 py-1 px-1"
     >
-      {copied ? "✓" : <BiClipboard />}
+      {copied ? "✔ Copied" : <BiClipboard />}
     </button>
   );
 };
-
-// ========================
-// Main Message Component
-// ========================
 
 const Message = ({ message, messageIndex }) => {
   const isUser = message.role === "user";

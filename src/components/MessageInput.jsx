@@ -2,11 +2,24 @@ import React, { useState, useRef, useEffect } from "react";
 
 const MessageInput = ({ onSend, loading, editContent, onClearEdit }) => {
   const [input, setInput] = useState("");
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
+
   const textareaRef = useRef(null);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     if (editContent) {
       setInput(editContent);
+
       if (textareaRef.current) {
         textareaRef.current.focus();
         textareaRef.current.selectionStart = textareaRef.current.value.length;
@@ -24,9 +37,15 @@ const MessageInput = ({ onSend, loading, editContent, onClearEdit }) => {
 
   const handleSubmit = () => {
     if (!input.trim() || loading) return;
+
     onSend(input);
+
     setInput("");
-    if (onClearEdit) onClearEdit();
+
+    if (onClearEdit) {
+      onClearEdit();
+    }
+
     if (textareaRef.current) {
       textareaRef.current.style.height = "auto";
     }
@@ -34,17 +53,24 @@ const MessageInput = ({ onSend, loading, editContent, onClearEdit }) => {
 
   const handleCancelEdit = () => {
     setInput("");
-    if (onClearEdit) onClearEdit();
+
+    if (onClearEdit) {
+      onClearEdit();
+    }
+
     if (textareaRef.current) {
       textareaRef.current.style.height = "auto";
     }
   };
 
   const handleKeyDown = (e) => {
+    if (isMobile) return;
+
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       handleSubmit();
     }
+
     if (e.key === "Escape" && editContent) {
       handleCancelEdit();
     }
@@ -55,6 +81,7 @@ const MessageInput = ({ onSend, loading, editContent, onClearEdit }) => {
       {editContent && (
         <div className="flex items-center justify-between max-w-3xl mx-auto mb-2 px-2">
           <span className="text-xs text-[#FF9900]">✏️ Editing message...</span>
+
           <button
             onClick={handleCancelEdit}
             className="text-xs text-gray-500 hover:text-gray-300 transition"
@@ -63,6 +90,7 @@ const MessageInput = ({ onSend, loading, editContent, onClearEdit }) => {
           </button>
         </div>
       )}
+
       <div className="flex items-end gap-2 max-w-3xl mx-auto">
         <div className="flex-1 bg-[#1a1a1a] border border-gray-800 rounded-2xl px-4 py-2 focus-within:ring-2 focus-within:ring-[#FF9900] transition">
           <textarea
@@ -70,14 +98,19 @@ const MessageInput = ({ onSend, loading, editContent, onClearEdit }) => {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder={
-              editContent ? "Edit your message..." : "Ask Elitz anything..."
-            }
-            rows="1"
-            className="w-full bg-transparent text-white placeholder-gray-500 text-sm outline-none resize-none min-h-[24px] max-h-[120px] leading-6"
+            rows={1}
             disabled={loading}
+            placeholder={
+              editContent
+                ? "Edit your message..."
+                : isMobile
+                  ? "Type your message..."
+                  : "Ask Elitz anything..."
+            }
+            className="w-full bg-transparent text-white placeholder-gray-500 text-sm outline-none resize-none min-h-[24px] max-h-[120px] leading-6"
           />
         </div>
+
         <button
           onClick={handleSubmit}
           disabled={loading || !input.trim()}
