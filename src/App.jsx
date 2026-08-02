@@ -31,12 +31,12 @@ function App() {
           toastStyle={{
             background: "#161616",
             color: "#fff",
-            border: "1px solid rgba(255,153,0,.2)",
+            border: "1px solid rgba(212,160,23,.2)", // gold border
             borderRadius: "16px",
             boxShadow: "0 10px 35px rgba(0,0,0,.45)",
           }}
           progressStyle={{
-            background: "#FF9900",
+            background: "#D4A017",
           }}
           style={{
             width: "auto",

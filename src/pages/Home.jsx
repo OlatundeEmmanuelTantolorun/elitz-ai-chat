@@ -23,7 +23,7 @@ const Home = () => {
   return (
     <main className="relative h-dvh overflow-y-auto no-scrollbar bg-[#0D0D0D]">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
-        <div className="w-[350px] h-[350px] md:w-[550px] md:h-[550px] rounded-full bg-[#FF9900]/10 blur-[140px]" />
+        <div className="w-[350px] h-[350px] md:w-[550px] md:h-[550px] rounded-full bg-[#D4A017]/10 blur-[140px]" />
       </div>
 
       <div
@@ -37,13 +37,13 @@ const Home = () => {
 
       <div className="relative z-10 flex min-h-full items-center justify-center px-4 sm:px-8 lg:px-12 py-8 md:py-12">
         <div className="w-full max-w-md sm:max-w-2xl md:max-w-4xl lg:max-w-5xl xl:max-w-6xl rounded-[32px] border border-gray-800 bg-[#151515]/95 backdrop-blur-xl shadow-2xl px-6 sm:px-10 md:px-14 lg:px-16 py-10 md:py-12 text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-[#FF9900]/20 bg-[#FF9900]/10 px-4 py-2 text-sm text-[#FF9900] mb-8">
+          <div className="inline-flex items-center gap-2 rounded-full border border-[#D4A017]/20 bg-[#D4A017]/10 px-4 py-2 text-sm text-[#D4A017] mb-8">
             <HiSparkles />
             Powered by GroqCloud
           </div>
 
           <div className="relative flex justify-center mb-8">
-            <div className="absolute w-44 h-44 sm:w-56 sm:h-56 lg:w-64 lg:h-64 rounded-full bg-[#FF9900]/20 blur-3xl animate-pulse" />
+            <div className="absolute w-44 h-44 sm:w-56 sm:h-56 lg:w-64 lg:h-64 rounded-full bg-[#D4A017]/20 blur-3xl animate-pulse" />
 
             <video
               src={robotVideo}
@@ -51,7 +51,7 @@ const Home = () => {
               loop
               muted
               playsInline
-              className="relative w-55 h-55 sm:w-64 sm:h-64 lg:w-72 lg:h-72 object-cover rounded-full border-2 border-[#FF9900] shadow-[0_0_60px_rgba(255,153,0,.25)]"
+              className="relative w-55 h-55 sm:w-64 sm:h-64 lg:w-72 lg:h-72 object-cover rounded-full border-2 border-[#D4A017] shadow-[0_0_60px_rgba(212,160,23,.25)]"
             />
           </div>
 
@@ -66,8 +66,8 @@ const Home = () => {
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
-            <div className="group flex items-center gap-4 rounded-2xl border border-gray-800 bg-[#1b1b1b] px-5 py-4 transition-all duration-300 hover:border-[#FF9900]/40 hover:bg-[#202020]">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#FF9900]/10 text-[#FF9900]">
+            <div className="group flex items-center gap-4 rounded-2xl border border-gray-800 bg-[#1b1b1b] px-5 py-4 transition-all duration-300 hover:border-[#D4A017]/40 hover:bg-[#202020]">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#D4A017]/10 text-[#D4A017]">
                 <HiChatBubbleLeftRight className="h-6 w-6" />
               </div>
 
@@ -79,8 +79,8 @@ const Home = () => {
               </div>
             </div>
 
-            <div className="group flex items-center gap-4 rounded-2xl border border-gray-800 bg-[#1b1b1b] px-5 py-4 transition-all duration-300 hover:border-[#FF9900]/40 hover:bg-[#202020]">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#FF9900]/10 text-[#FF9900]">
+            <div className="group flex items-center gap-4 rounded-2xl border border-gray-800 bg-[#1b1b1b] px-5 py-4 transition-all duration-300 hover:border-[#D4A017]/40 hover:bg-[#202020]">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#D4A017]/10 text-[#D4A017]">
                 <HiBolt className="h-6 w-6" />
               </div>
 
@@ -92,8 +92,8 @@ const Home = () => {
               </div>
             </div>
 
-            <div className="group flex items-center gap-4 rounded-2xl border border-gray-800 bg-[#1b1b1b] px-5 py-4 transition-all duration-300 hover:border-[#FF9900]/40 hover:bg-[#202020]">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#FF9900]/10 text-[#FF9900]">
+            <div className="group flex items-center gap-4 rounded-2xl border border-gray-800 bg-[#1b1b1b] px-5 py-4 transition-all duration-300 hover:border-[#D4A017]/40 hover:bg-[#202020]">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#D4A017]/10 text-[#D4A017]">
                 <HiCodeBracket className="h-6 w-6" />
               </div>
 
@@ -105,8 +105,8 @@ const Home = () => {
               </div>
             </div>
 
-            <div className="group flex items-center gap-4 rounded-2xl border border-gray-800 bg-[#1b1b1b] px-5 py-4 transition-all duration-300 hover:border-[#FF9900]/40 hover:bg-[#202020]">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#FF9900]/10 text-[#FF9900]">
+            <div className="group flex items-center gap-4 rounded-2xl border border-gray-800 bg-[#1b1b1b] px-5 py-4 transition-all duration-300 hover:border-[#D4A017]/40 hover:bg-[#202020]">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#D4A017]/10 text-[#D4A017]">
                 <HiCpuChip className="h-6 w-6" />
               </div>
 
@@ -121,7 +121,7 @@ const Home = () => {
 
           <button
             onClick={handleGetStarted}
-            className="group mt-10 w-full rounded-2xl bg-[#FF9900] py-4 font-semibold text-black transition-all duration-300 hover:scale-[1.02] hover:bg-[#ffad26] hover:shadow-[0_0_30px_rgba(255,153,0,.45)] flex items-center justify-center gap-3"
+            className="group mt-10 w-full rounded-2xl bg-[#D4A017] py-4 font-semibold text-black transition-all duration-300 hover:scale-[1.02] hover:bg-[#b88a14] hover:shadow-[0_0_30px_rgba(212,160,23,.45)] flex items-center justify-center gap-3"
           >
             Get Started
             <HiArrowRight className="transition-transform duration-300 group-hover:translate-x-1" />

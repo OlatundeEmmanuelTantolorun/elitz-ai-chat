@@ -40,7 +40,7 @@ const Chat = () => {
       const timer = setTimeout(() => {
         toast(
           <div className="space-y-4">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-[#FF9900]/10 border border-[#FF9900]/20 px-3 py-1 text-xs font-medium text-[#FF9900]">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-[#D4A017]/10 border border-[#D4A017]/20 px-3 py-1 text-xs font-medium text-[#D4A017]">
               <HiOutlineSparkles className="h-3.5 w-3.5" /> Early Access
             </span>
 
@@ -158,15 +158,15 @@ const Chat = () => {
       <div className="flex h-dvh w-full items-center justify-center bg-[#0D0D0D] text-white">
         <div className="flex items-center gap-2">
           <span
-            className="h-3 w-3 rounded-full bg-[#FF9900] animate-bounce"
+            className="h-3 w-3 rounded-full bg-[#D4A017] animate-bounce"
             style={{ animationDelay: "0ms" }}
           />
           <span
-            className="h-3 w-3 rounded-full bg-[#FF9900] animate-bounce"
+            className="h-3 w-3 rounded-full bg-[#D4A017] animate-bounce"
             style={{ animationDelay: "150ms" }}
           />
           <span
-            className="h-3 w-3 rounded-full bg-[#FF9900] animate-bounce"
+            className="h-3 w-3 rounded-full bg-[#D4A017] animate-bounce"
             style={{ animationDelay: "300ms" }}
           />
         </div>
@@ -181,7 +181,7 @@ const Chat = () => {
   return (
     <div className="flex h-dvh bg-[#0D0D0D] overflow-hidden text-white animate-fadeIn">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-32 left-1/2 h-80 w-80 -translate-x-1/2 rounded-full bg-[#FF9900]/10 blur-[120px] animate-[float_8s_ease-in-out_infinite]" />
+        <div className="absolute top-32 left-1/2 h-80 w-80 -translate-x-1/2 rounded-full bg-[#D4A017]/10 blur-[120px] animate-[float_8s_ease-in-out_infinite]" />
       </div>
 
       <Sidebar
@@ -198,12 +198,12 @@ const Chat = () => {
           {activeChat?.messages?.length === 0 ? (
             <div className="mx-auto flex min-h-[calc(100dvh-80px)] w-full max-w-6xl flex-col justify-center px-6 py-12 md:px-10 animate-[fadeIn_0.5s_ease]">
               <div className="mb-12 text-center animate-[fadeIn_0.5s_ease]">
-                <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-3xl border border-[#FF9900]/20 bg-[#FF9900]/10 shadow-[0_0_30px_rgba(255,153,0,.12)]">
-                  <HiOutlineCpuChip className="h-10 w-10 text-[#FF9900] animate-pulse" />
+                <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-3xl border border-[#D4A017]/20 bg-[#D4A017]/10 shadow-[0_0_30px_rgba(212,160,23,.12)]">
+                  <HiOutlineCpuChip className="h-10 w-10 text-[#D4A017] animate-pulse" />
                 </div>
 
                 <h1 className="text-4xl font-bold tracking-tight md:text-5xl">
-                  Welcome to <span className="text-[#FF9900]">Elitz AI</span>
+                  Welcome to <span className="text-[#D4A017]">Elitz AI</span>
                 </h1>
 
                 <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-gray-400">
@@ -214,21 +214,21 @@ const Chat = () => {
 
                 <div className="mt-6 flex justify-center gap-8 text-sm text-gray-500">
                   <div className="flex items-center gap-2">
-                    <HiBolt className="h-4 w-4 text-[#FF9900]" />
+                    <HiBolt className="h-4 w-4 text-[#D4A017]" />
                     <div>
                       <h3 className="text-white font-semibold">Speed</h3>
                       <p>Groq Powered</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
-                    <HiOutlineCpuChip className="h-4 w-4 text-[#FF9900]" />
+                    <HiOutlineCpuChip className="h-4 w-4 text-[#D4A017]" />
                     <div>
                       <h3 className="text-white font-semibold">Reasoning</h3>
                       <p>AI</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
-                    <HiClock className="h-4 w-4 text-[#FF9900]" />
+                    <HiClock className="h-4 w-4 text-[#D4A017]" />
                     <div>
                       <h3 className="text-white font-semibold">24/7</h3>
                       <p>Available</p>
@@ -245,17 +245,17 @@ const Chat = () => {
                     <button
                       key={s.title}
                       onClick={() => sendMessage(activeChat.id, s.prompt)}
-                      className="group rounded-3xl border border-gray-800 bg-[#171717] p-6 text-left transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1 hover:border-[#FF9900]/40 hover:bg-[#1d1d1d] hover:shadow-[0_0_25px_rgba(255,153,0,.08)] active:scale-[.98] animate-[fadeIn_0.5s_ease]"
+                      className="group rounded-3xl border border-gray-800 bg-[#171717] p-6 text-left transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1 hover:border-[#D4A017]/40 hover:bg-[#1d1d1d] hover:shadow-[0_0_25px_rgba(212,160,23,.08)] active:scale-[.98] animate-[fadeIn_0.5s_ease]"
                       style={{
                         animationDelay: `${index * 120}ms`,
                         animationFillMode: "both",
                       }}
                     >
-                      <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#FF9900]/10 text-[#FF9900]">
+                      <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#D4A017]/10 text-[#D4A017]">
                         <Icon className="h-6 w-6" />
                       </div>
 
-                      <h3 className="text-lg font-semibold text-white group-hover:text-[#FF9900] transition-colors">
+                      <h3 className="text-lg font-semibold text-white group-hover:text-[#D4A017] transition-colors">
                         {s.title}
                       </h3>
 
@@ -281,7 +281,7 @@ const Chat = () => {
                 <div className="mb-8 flex">
                   <div className="rounded-3xl border border-gray-800 bg-[#171717] p-5 w-fit">
                     <div className="flex items-center gap-4">
-                      <HiOutlineCpuChip className="text-[#FF9900] animate-pulse text-2xl" />
+                      <HiOutlineCpuChip className="text-[#D4A017] animate-pulse text-2xl" />
                       <div className="space-y-2">
                         <p className="text-sm text-gray-300">
                           Elitz is thinking...

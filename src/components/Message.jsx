@@ -64,7 +64,7 @@ const Message = ({ message, messageIndex }) => {
         <div
           className={`px-4 py-3 rounded-2xl shadow-sm overflow-hidden break-words ${
             isUser
-              ? "bg-[#1a1a1a] border border-[#FF9900] text-white"
+              ? "bg-[#1a1a1a] border border-[#D4A017] text-white"
               : "bg-[#1a1a1a] border border-gray-800 text-gray-200"
           }`}
         >
@@ -100,7 +100,7 @@ const Message = ({ message, messageIndex }) => {
 
                   return (
                     <code
-                      className="bg-[#0D0D0D] px-1 rounded text-[#FF9900]"
+                      className="bg-[#0D0D0D] px-1 rounded text-[#D4A017]"
                       {...props}
                     >
                       {children}

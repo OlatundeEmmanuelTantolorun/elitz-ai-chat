@@ -44,14 +44,14 @@ const Sidebar = ({ isOpen, onToggle }) => {
     <>
       {isOpen && isMobile && (
         <div
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100]" // Increased from z-30
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100]"
           onClick={onToggle}
         />
       )}
       <aside
         className={`
     fixed md:relative
-    z-[100] // Increased from z-40
+    z-[100]
     h-full
     w-80
     bg-[#111111]
@@ -64,18 +64,13 @@ const Sidebar = ({ isOpen, onToggle }) => {
         <div className="border-b border-gray-800 p-5">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-37 h-auto rounded-xl bg-[#1a1a1a] border border-gray-800 flex items-center justify-center py-2 px-1">
+              {/* ── Modernized Logo Container ── */}
+              <div className="relative rounded-xl bg-[#1a1a1a]/80 backdrop-blur-sm border border-[#D4A017]/30 shadow-[0_0_25px_rgba(212,160,23,0.08)] p-3 transition-all duration-300 hover:border-[#D4A017]/60 hover:shadow-[0_0_35px_rgba(212,160,23,0.15)]">
                 <img
                   src={logo}
                   alt="Elitz"
                   className="w-35 h-auto object-contain"
                 />
-              </div>
-
-              <div>
-                <h2 className="text-white font-semibold">Elitz AI</h2>
-
-                <p className="text-xs text-gray-500">Smart conversations</p>
               </div>
             </div>
 
@@ -91,7 +86,7 @@ const Sidebar = ({ isOpen, onToggle }) => {
         <div className="p-4 space-y-3">
           <button
             onClick={handleNewChat}
-            className="w-full flex items-center justify-center gap-2 rounded-xl bg-[#FF9900] hover:bg-[#ffad26] text-black font-semibold py-3 transition-all duration-200 shadow-lg hover:scale-[1.02]"
+            className="w-full flex items-center justify-center gap-2 rounded-xl bg-[#D4A017] hover:bg-[#b88a14] text-black font-semibold py-3 transition-all duration-200 shadow-lg hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(212,160,23,0.3)]"
           >
             <HiPlus size={18} />
             New Chat
@@ -142,7 +137,7 @@ const Sidebar = ({ isOpen, onToggle }) => {
                       border
                       ${
                         chat.id === activeChatId
-                          ? "bg-[#1d1d1d] border-[#FF9900]/50 shadow-[0_0_0_1px_rgba(255,153,0,0.15)]"
+                          ? "bg-[#1d1d1d] border-[#D4A017]/50 shadow-[0_0_0_1px_rgba(212,160,23,0.15)]"
                           : "bg-transparent border-transparent hover:bg-[#1a1a1a] hover:border-gray-800"
                       }
                     `}
@@ -165,7 +160,7 @@ const Sidebar = ({ isOpen, onToggle }) => {
                           {chat.id === activeChatId && (
                             <>
                               <span>•</span>
-                              <span className="text-[#FF9900]">Active</span>
+                              <span className="text-[#D4A017]">Active</span>
                             </>
                           )}
                         </div>
@@ -207,7 +202,7 @@ const Sidebar = ({ isOpen, onToggle }) => {
         <div className="border-t border-gray-800 p-4 bg-[#101010]">
           <div className="rounded-xl border border-gray-800 bg-[#181818] p-3">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-[#FF9900] flex items-center justify-center text-black font-bold">
+              <div className="w-10 h-10 rounded-full bg-[#D4A017] flex items-center justify-center text-black font-bold">
                 E
               </div>
 

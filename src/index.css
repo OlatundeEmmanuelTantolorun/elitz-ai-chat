@@ -8,6 +8,7 @@ body {
   overflow-y: hidden;
 }
 
+/* ── scrollbar – gold accent ── */
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -17,14 +18,15 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #ff9900;
+  background: #d4a017; /* main gold */
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #e68a00;
+  background: #b88a14; /* darker gold on hover */
 }
 
+/* ── prose / markdown ── */
 .prose {
   max-width: none;
 }
@@ -38,7 +40,7 @@ body {
   padding: 0.2em 0.4em;
   border-radius: 3px;
   font-size: 0.9em;
-  color: #ff9900;
+  color: #d4a017; /* gold inline code */
   white-space: nowrap;
 }
 
@@ -70,6 +72,7 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
+/* ── utilities ── */
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;

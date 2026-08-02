@@ -21,7 +21,7 @@ const Navbar = ({ onToggleSidebar }) => {
               Elitz
             </h1>
 
-            <span className="text-xs text-[#FF9900] font-medium">
+            <span className="text-xs text-[#D4A017] font-medium">
               Powered by Groq
             </span>
           </div>

@@ -77,10 +77,12 @@ const MessageInput = ({ onSend, loading, editContent, onClearEdit }) => {
   };
 
   return (
-    <div className="flex-shrink-0 border-t border-gray-800 bg-[#0D0D0D] p-3">
+    <div className="flex-shrink-0 border-t border-gray-800 bg-[#0D0D0D]/95 backdrop-blur-sm p-4">
       {editContent && (
         <div className="flex items-center justify-between max-w-3xl mx-auto mb-2 px-2">
-          <span className="text-xs text-[#FF9900]">✏️ Editing message...</span>
+          <span className="text-xs text-[#D4A017] font-medium">
+            ✏️ Editing message...
+          </span>
 
           <button
             onClick={handleCancelEdit}
@@ -91,8 +93,8 @@ const MessageInput = ({ onSend, loading, editContent, onClearEdit }) => {
         </div>
       )}
 
-      <div className="flex items-end gap-2 max-w-3xl mx-auto">
-        <div className="flex-1 bg-[#1a1a1a] border border-gray-800 rounded-2xl px-4 py-2 focus-within:ring-2 focus-within:ring-[#FF9900] transition">
+      <div className="flex items-end gap-3 max-w-3xl mx-auto">
+        <div className="flex-1 bg-[#1a1a1a] border border-gray-700 rounded-2xl px-4 py-2 focus-within:ring-2 focus-within:ring-[#D4A017] focus-within:border-transparent transition-all duration-200">
           <textarea
             ref={textareaRef}
             value={input}
@@ -115,11 +117,11 @@ const MessageInput = ({ onSend, loading, editContent, onClearEdit }) => {
           onClick={handleSubmit}
           disabled={loading || !input.trim()}
           className={`
-            p-3 rounded-full transition flex-shrink-0
+            p-3 rounded-full transition-all duration-200 flex-shrink-0
             ${
               loading || !input.trim()
                 ? "bg-gray-800 text-gray-500 cursor-not-allowed"
-                : "bg-[#FF9900] text-white hover:bg-[#e68a00] shadow-lg"
+                : "bg-[#D4A017] text-black hover:bg-[#b88a14] hover:scale-105 active:scale-95 shadow-lg hover:shadow-[0_0_25px_rgba(212,160,23,0.3)]"
             }
           `}
         >
